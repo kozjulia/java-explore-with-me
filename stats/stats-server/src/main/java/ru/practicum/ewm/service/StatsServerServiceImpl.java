@@ -23,12 +23,12 @@ public class StatsServerServiceImpl implements StatsServerService {
 
     @Transactional
     @Override
-    public EndpointHit saveEndpointHit(EndpointHit endpointHitDto) {
+    public EndpointHit saveEndpointHit(EndpointHit endpointHit) {
         try {
-            Hit hit = statsServerRepository.save(StatsServerMapper.INSTANCE.toHit(endpointHitDto));
+            Hit hit = statsServerRepository.save(StatsServerMapper.INSTANCE.toHit(endpointHit));
             return StatsServerMapper.INSTANCE.toEndpointHit(hit);
         } catch (DataIntegrityViolationException e) {
-            throw new HitNotSaveException("Информация о запросе не была сохранена: " + endpointHitDto);
+            throw new HitNotSaveException("Информация о запросе не была сохранена: " + endpointHit);
         }
     }
 

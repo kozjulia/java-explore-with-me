@@ -2,8 +2,8 @@ package ru.practicum.ewm.dto;
 
 import lombok.*;
 
+@Data
 @AllArgsConstructor
-@Getter
 public class ViewStats {
 
     String app; // Название сервиса
