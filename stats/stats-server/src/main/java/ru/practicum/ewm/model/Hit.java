@@ -20,15 +20,15 @@ public class Hit {
     private Long id; // Идентификатор записи
 
     @Column(name = "hits_app", nullable = false)
-    String app; // Идентификатор сервиса для которого записывается информация
+    private String app; // Идентификатор сервиса для которого записывается информация
 
     @Column(name = "hits_uri", nullable = false)
-    String uri;  // URI для которого был осуществлен запрос
+    private String uri;  // URI для которого был осуществлен запрос
 
     @Column(name = "hits_ip", nullable = false)
-    String ip; // IP-адрес пользователя, осуществившего запрос
+    private String ip; // IP-адрес пользователя, осуществившего запрос
 
     @Column(name = "hits_timestamp", nullable = false)
-    LocalDateTime timestamp; //  Дата и время, когда был совершен запрос к эндпоинту
+    private LocalDateTime timestamp; //  Дата и время, когда был совершен запрос к эндпоинту
 
 }
