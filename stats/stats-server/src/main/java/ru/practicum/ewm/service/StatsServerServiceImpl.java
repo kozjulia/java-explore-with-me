@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class StatsServerServiceImpl implements StatsServerService {
 
@@ -33,6 +32,7 @@ public class StatsServerServiceImpl implements StatsServerService {
         }
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<ViewStats> getAllStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
         if (unique) {

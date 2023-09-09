@@ -27,7 +27,7 @@ public class StatsServerController {
     /**
      * Сохранение информации о том, что на uri конкретного сервиса был отправлен запрос пользователем.
      */
-    public ResponseEntity<EndpointHit> saveUser(@RequestBody EndpointHit endpointHitDto) {
+    public ResponseEntity<EndpointHit> saveHit(@RequestBody EndpointHit endpointHitDto) {
         endpointHitDto = statsServerService.saveEndpointHit(endpointHitDto);
         log.info("Добавлена новая информация о запросе: {}", endpointHitDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(endpointHitDto);
