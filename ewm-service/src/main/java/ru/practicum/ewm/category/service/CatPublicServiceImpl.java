@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class PublicServiceImpl implements PublicService {
+public class CatPublicServiceImpl implements CatPublicService {
 
     private final CategoryRepository categoryRepository;
 

@@ -1,4 +1,4 @@
-package ru.practicum.ewm.repository;
+package ru.practicum.ewm.category.repository;
 
 import ru.practicum.ewm.dto.ViewStats;
 import ru.practicum.ewm.model.Hit;

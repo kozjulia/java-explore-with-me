@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class AdminServiceImpl implements AdminService {
+public class CatAdminServiceImpl implements CatAdminService {
 
     private final CategoryRepository categoryRepository;
 
@@ -33,7 +33,6 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void deleteCategoryById(Long catId) {
-        //if (categoryRepository.findById(catId).isEmpty()) {
         if (!categoryRepository.existsById(catId)) {
             throw new NotFoundException("Категория с ид = " + catId + " не была найдена.");
         }

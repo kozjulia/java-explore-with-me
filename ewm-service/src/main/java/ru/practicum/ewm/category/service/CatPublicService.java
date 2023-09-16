@@ -4,7 +4,7 @@ import ru.practicum.ewm.category.dto.CategoryDto;
 
 import java.util.List;
 
-public interface PublicService {
+public interface CatPublicService {
 
     List<CategoryDto> getAllCategories(Integer from, Integer size);
 
