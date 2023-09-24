@@ -8,12 +8,12 @@ import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @RestControllerAdvice
-//(assignableTypes = {AdminController.class, PublicController.class})
 @Slf4j
 public class ErrorHandler {
 
@@ -78,6 +78,34 @@ public class ErrorHandler {
         ApiError apiError = new ApiError();
         apiError.setStatus(HttpStatus.CONFLICT);
         apiError.setReason("For the requested operation the conditions are not met.");
+        apiError.setMessage(e.getMessage());
+        apiError.setTimestamp(LocalDateTime.now());
+        apiError.setErrors(Arrays.stream(e.getStackTrace()).map(x -> x.toString()).collect(Collectors.toList()));
+
+        log.warn(apiError.toString());
+        return apiError;
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiError handleNotSave(final BadRequestException e) {
+        ApiError apiError = new ApiError();
+        apiError.setStatus(HttpStatus.BAD_REQUEST);
+        apiError.setReason("Incorrectly made request.");
+        apiError.setMessage(e.getMessage());
+        apiError.setTimestamp(LocalDateTime.now());
+        apiError.setErrors(Arrays.stream(e.getStackTrace()).map(x -> x.toString()).collect(Collectors.toList()));
+
+        log.warn(apiError.toString());
+        return apiError;
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiError handleMissingRequestParameter(final MissingServletRequestParameterException e) {
+        ApiError apiError = new ApiError();
+        apiError.setStatus(HttpStatus.BAD_REQUEST);
+        apiError.setReason("Required request parameter is not present.");
         apiError.setMessage(e.getMessage());
         apiError.setTimestamp(LocalDateTime.now());
         apiError.setErrors(Arrays.stream(e.getStackTrace()).map(x -> x.toString()).collect(Collectors.toList()));

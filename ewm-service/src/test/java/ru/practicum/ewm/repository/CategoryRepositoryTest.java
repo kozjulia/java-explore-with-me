@@ -1,4 +1,4 @@
-package ru.practicum.ewm.category.repository;
+package ru.practicum.ewm.repository;
 
 import org.junit.jupiter.api.Test;
 

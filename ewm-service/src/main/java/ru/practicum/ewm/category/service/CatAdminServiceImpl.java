@@ -32,12 +32,14 @@ public class CatAdminServiceImpl implements CatAdminService {
     }
 
     @Override
-    public void deleteCategoryById(Long catId) {
+    public Boolean deleteCategoryById(Long catId) {
         if (!categoryRepository.existsById(catId)) {
             throw new NotFoundException("Категория с ид = " + catId + " не была найдена.");
         }
 
-        if (categoryRepository.deleteByIdWithReturnedLines(catId) == 0) {
+        try {
+            return categoryRepository.deleteByIdWithReturnedLines(catId) >= 0;
+        } catch (DataIntegrityViolationException e) {
             throw new ConflictException("Категория с ид = " + catId + " не может быть удалена, " +
                     "существуют события, связанные с категорией.");
         }

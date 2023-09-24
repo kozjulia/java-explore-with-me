@@ -27,8 +27,8 @@ public class UserAdminController {
     @GetMapping
     /**
      * Возвращение информации обо всех пользователях (учитываются параметры ограничения выборки),
-     * либо о конкретных (учитываются указанные идентификаторы)
-     * В случае, если по заданным фильтрам не найдено ни одного пользователя, возвращение пустого списка
+     * либо о конкретных (учитываются указанные идентификаторы).
+     * В случае, если по заданным фильтрам не найдено ни одного пользователя, возвращение пустого списка.
      */
     public ResponseEntity<List<UserDto>> getAllUsers(
             @RequestParam(required = false) List<Long> ids,
@@ -56,8 +56,8 @@ public class UserAdminController {
      * Удаление пользователя.
      */
     public void deleteUserById(@PathVariable Long userId) {
-        log.info("Удалён пользователь с id = {}", userId);
         adminService.deleteUserById(userId);
+        log.info("Удалён пользователь с id = {}", userId);
     }
 
 }
