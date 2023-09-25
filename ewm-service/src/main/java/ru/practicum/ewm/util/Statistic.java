@@ -7,7 +7,8 @@ import org.springframework.stereotype.Component;
 public class Statistic {
 
 
-    public StatsClient statsClient = new StatsClient("http://localhost:9090");
+    //public StatsClient statsClient = new StatsClient("http://localhost:9090");
+    public StatsClient statsClient = new StatsClient("http://stats-server:9090");
 
 /*    @Autowired
     public StatsClient statsClient;*/
