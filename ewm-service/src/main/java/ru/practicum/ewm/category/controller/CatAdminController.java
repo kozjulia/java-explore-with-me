@@ -4,7 +4,6 @@ import ru.practicum.ewm.category.dto.CategoryDto;
 import ru.practicum.ewm.category.dto.NewCategoryDto;
 import ru.practicum.ewm.category.service.CatAdminService;
 
-import java.util.Optional;
 import javax.validation.Valid;
 
 import lombok.RequiredArgsConstructor;
@@ -40,8 +39,8 @@ public class CatAdminController {
      */
     public ResponseEntity<Boolean> deleteCategoryById(@PathVariable Long catId) {
         Boolean result = adminService.deleteCategoryById(catId);
-        log.info("Удалёна категория с id = {}", catId);
-        return ResponseEntity.of(Optional.of(result));
+        log.info("Удалена категория с id = {}", catId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(result);
     }
 
     @PatchMapping("/{catId}")

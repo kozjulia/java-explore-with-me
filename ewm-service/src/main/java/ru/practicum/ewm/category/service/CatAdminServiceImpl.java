@@ -3,11 +3,11 @@ package ru.practicum.ewm.category.service;
 import ru.practicum.ewm.category.dto.CategoryDto;
 import ru.practicum.ewm.category.dto.NewCategoryDto;
 import ru.practicum.ewm.exception.ConflictException;
-import ru.practicum.ewm.exception.NotFoundException;
 import ru.practicum.ewm.exception.NotSaveException;
 import ru.practicum.ewm.category.mapper.CategoryMapper;
 import ru.practicum.ewm.category.model.Category;
 import ru.practicum.ewm.category.repository.CategoryRepository;
+import ru.practicum.ewm.util.UtilService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CatAdminServiceImpl implements CatAdminService {
 
     private final CategoryRepository categoryRepository;
+    private final UtilService utilService;
 
     @Override
     public CategoryDto saveCategory(NewCategoryDto newCategoryDto) {
@@ -33,9 +34,7 @@ public class CatAdminServiceImpl implements CatAdminService {
 
     @Override
     public Boolean deleteCategoryById(Long catId) {
-        if (!categoryRepository.existsById(catId)) {
-            throw new NotFoundException("Категория с ид = " + catId + " не была найдена.");
-        }
+        utilService.returnCategory(catId);
 
         try {
             return categoryRepository.deleteByIdWithReturnedLines(catId) >= 0;
@@ -47,8 +46,7 @@ public class CatAdminServiceImpl implements CatAdminService {
 
     @Override
     public CategoryDto updateCategory(Long catId, CategoryDto categoryDto) {
-        Category category = categoryRepository.findById(catId).orElseThrow(() ->
-                new NotFoundException("Категория с id = " + catId + " не найдена."));
+        Category category = utilService.returnCategory(catId);
         category.setName(categoryDto.getName());
 
         try {

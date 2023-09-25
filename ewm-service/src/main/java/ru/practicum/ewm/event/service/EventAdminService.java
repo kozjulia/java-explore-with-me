@@ -6,12 +6,13 @@ import ru.practicum.ewm.event.model.StateEvent;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
 public interface EventAdminService {
 
     List<EventFullDto> getAllEventsByAdmin(
-            List<Long> users, List<StateEvent> states, List<Long> categories,
-            LocalDateTime rangeStart, LocalDateTime rangeEnd, Integer from, Integer size);
+            List<Long> users, List<StateEvent> states, List<Long> categories, LocalDateTime rangeStart,
+            LocalDateTime rangeEnd, Integer from, Integer size, HttpServletRequest request);
 
     EventFullDto updateEventByAdmin(Long eventId, UpdateEventAdminRequest updateEventAdminRequest);
 

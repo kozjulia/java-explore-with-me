@@ -2,6 +2,8 @@ package ru.practicum.ewm.util;
 
 import ru.practicum.ewm.category.model.Category;
 import ru.practicum.ewm.category.repository.CategoryRepository;
+import ru.practicum.ewm.compilation.model.Compilation;
+import ru.practicum.ewm.compilation.repository.CompilationRepository;
 import ru.practicum.ewm.dto.ViewStats;
 import ru.practicum.ewm.event.dto.LocationDto;
 import ru.practicum.ewm.event.mapper.LocationMapper;
@@ -37,6 +39,7 @@ public class UtilService {
     private final LocationRepository locationRepository;
     private final EventRepository eventRepository;
     private final RequestRepository requestRepository;
+    private final CompilationRepository compilationRepository;
     private final Statistic statistic;
 
     public User returnUser(Long userId) {
@@ -72,6 +75,11 @@ public class UtilService {
         return location != null ? location : locationRepository.save(LocationMapper.INSTANCE.toLocation(locationDto));
     }
 
+    public Compilation returnCompilation(Long compId) {
+        return compilationRepository.findById(compId).orElseThrow(() ->
+                new NotFoundException("Подборка событий с идентификатором " + compId + " не найдена."));
+    }
+
     public Map<Long, Long> returnMapViewStats(List<Event> events, LocalDateTime rangeStart, LocalDateTime rangeEnd) {
         List<String> uris = events.stream()
                 .map(event -> "/events/" + event.getId())
@@ -81,8 +89,8 @@ public class UtilService {
 
         Map<Long, Long> views = new HashMap<>();
         for (ViewStats viewStats : viewStatList) {
-            Long id = Long.parseLong(viewStats.getUri().split("/events/")[0]);
-            views.put(id, views.get(id) + 1);
+            Long id = Long.parseLong(viewStats.getUri().split("/events/")[1]);
+            views.put(id, views.getOrDefault(id, 0L) + 1);
         }
         return views;
     }

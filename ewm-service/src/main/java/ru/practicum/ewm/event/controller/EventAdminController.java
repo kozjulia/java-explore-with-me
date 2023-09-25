@@ -7,6 +7,7 @@ import ru.practicum.ewm.event.service.EventAdminService;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
@@ -39,9 +40,10 @@ public class EventAdminController {
             @RequestParam(required = false) @DateTimeFormat(pattern = PATTERN_FOR_DATETIME) LocalDateTime rangeStart,
             @RequestParam(required = false) @DateTimeFormat(pattern = PATTERN_FOR_DATETIME) LocalDateTime rangeEnd,
             @PositiveOrZero @RequestParam(name = "from", defaultValue = "0") Integer from,
-            @Positive @RequestParam(name = "size", defaultValue = "10") Integer size) {
+            @Positive @RequestParam(name = "size", defaultValue = "10") Integer size,
+            HttpServletRequest request) {
         List<EventFullDto> eventDtos = adminService.getAllEventsByAdmin(
-                users, states, categories, rangeStart, rangeEnd, from, size);
+                users, states, categories, rangeStart, rangeEnd, from, size, request);
         log.info("Получен список событий, users = {}, states = {}, categories = {}, rangeStart = {}, rangeEnd = {}, " +
                 "from = {}, size = {}.", users, states, categories, rangeStart, rangeEnd, from, size);
         return ResponseEntity.ok().body(eventDtos);

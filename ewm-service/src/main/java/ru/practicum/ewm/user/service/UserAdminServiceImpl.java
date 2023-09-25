@@ -1,12 +1,12 @@
 package ru.practicum.ewm.user.service;
 
-import ru.practicum.ewm.exception.NotFoundException;
 import ru.practicum.ewm.exception.NotSaveException;
 import ru.practicum.ewm.user.dto.NewUserRequest;
 import ru.practicum.ewm.user.dto.UserDto;
 import ru.practicum.ewm.user.mapper.UserMapper;
 import ru.practicum.ewm.user.model.User;
 import ru.practicum.ewm.user.repository.UserRepository;
+import ru.practicum.ewm.util.UtilService;
 
 import java.util.List;
 
@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserAdminServiceImpl implements UserAdminService {
 
     private final UserRepository userRepository;
+    private final UtilService utilService;
 
     @Transactional(readOnly = true)
     @Override
@@ -51,9 +52,7 @@ public class UserAdminServiceImpl implements UserAdminService {
 
     @Override
     public void deleteUserById(Long userId) {
-        if (!userRepository.existsById(userId)) {
-            throw new NotFoundException("Пользователь с ид = " + userId + " не был найден.");
-        }
+        utilService.returnUser(userId);
         userRepository.deleteById(userId);
     }
 

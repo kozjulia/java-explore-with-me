@@ -65,7 +65,7 @@ public class EventPublicServiceImpl implements EventPublicService {
             categories = null;
         }
         if (rangeStart == null) {
-            rangeStart = LocalDateTime.now();
+            rangeStart = LocalDateTime.now().minusYears(100);
         }
         if (rangeEnd == null) {
             rangeEnd = LocalDateTime.now().plusYears(100);
@@ -73,6 +73,13 @@ public class EventPublicServiceImpl implements EventPublicService {
 
         List<Event> events = eventRepository.getAllEvents(
                 text, categories, paid, rangeStart, rangeEnd, onlyAvailable, page);
+        if (events != null) {
+            for (Event event : events) {
+                endpointHit.setUri("/events/" + event.getId());
+                endpointHit.setTimestamp(LocalDateTime.now());
+                statistic.statsClient.saveHit(endpointHit);
+            }
+        }
         Map<Long, Long> views = utilService.returnMapViewStats(events, rangeStart, rangeEnd);
         List<EventShortDto> eventShortDtos = EventMapper.INSTANCE.convertEventListToEventShortDtoList(events);
 

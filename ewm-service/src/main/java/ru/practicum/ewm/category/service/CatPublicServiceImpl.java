@@ -3,7 +3,7 @@ package ru.practicum.ewm.category.service;
 import ru.practicum.ewm.category.dto.CategoryDto;
 import ru.practicum.ewm.category.mapper.CategoryMapper;
 import ru.practicum.ewm.category.repository.CategoryRepository;
-import ru.practicum.ewm.exception.NotFoundException;
+import ru.practicum.ewm.util.UtilService;
 
 import java.util.List;
 
@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CatPublicServiceImpl implements CatPublicService {
 
     private final CategoryRepository categoryRepository;
+    private final UtilService utilService;
 
     @Override
     public List<CategoryDto> getAllCategories(Integer from, Integer size) {
@@ -30,8 +31,7 @@ public class CatPublicServiceImpl implements CatPublicService {
 
     @Override
     public CategoryDto getCategoryById(Long catId) {
-        return CategoryMapper.INSTANCE.toCategoryDto(categoryRepository.findById(catId).orElseThrow(() ->
-                new NotFoundException("Категория с идентификатором " + catId + " не найдена.")));
+        return CategoryMapper.INSTANCE.toCategoryDto(utilService.returnCategory(catId));
     }
 
 }
