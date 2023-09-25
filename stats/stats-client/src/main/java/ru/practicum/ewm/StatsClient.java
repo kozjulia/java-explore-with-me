@@ -23,6 +23,8 @@ public class StatsClient {
     private final HttpClient client = HttpClient.newBuilder()
             .version(HttpClient.Version.HTTP_1_1)
             .build();
+
+    @Value("${stats-service.url}")
     private final String serverUrl;
     private final Gson gson = getGson();
 

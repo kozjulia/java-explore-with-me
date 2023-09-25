@@ -10,7 +10,7 @@ public class Statistic {
     //public StatsClient statsClient = new StatsClient("http://localhost:9090");
     public StatsClient statsClient = new StatsClient("http://stats-server:9090");
 
-/*    @Autowired
+  /*  @Autowired
     public StatsClient statsClient;*/
 
     //public StatsClient statsClient = new StatsClient(@Value("${EWM_STATS_SERVER_URL}"));
