@@ -9,12 +9,12 @@ import lombok.Data;
 @Data
 public class CompilationDto {
 
-    Long id; // Идентификатор
+    private Long id; // Идентификатор
 
-    Set<EventShortDto> events; // Список идентификаторов событий, входящих в подборку
+    private Set<EventShortDto> events; // Список идентификаторов событий, входящих в подборку
 
-    Boolean pinned; // Закреплена ли подборка на главной странице сайта
+    private Boolean pinned; // Закреплена ли подборка на главной странице сайта
 
-    String title; // Заголовок подборки
+    private String title; // Заголовок подборки
 
 }

@@ -19,19 +19,19 @@ public class Compilation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "compilations_id")
-    Long id; // Идентификатор
+    private Long id; // Идентификатор
 
     @ManyToMany
     @JoinTable(
             name = "compilations_events",
             joinColumns = @JoinColumn(name = "compilation_id"),
             inverseJoinColumns = @JoinColumn(name = "event_id"))
-    Set<Event> events; // Список идентификаторов событий, входящих в подборку
+    private Set<Event> events; // Список идентификаторов событий, входящих в подборку
 
     @Column(name = "compilations_pinned", nullable = false)
-    Boolean pinned; // Закреплена ли подборка на главной странице сайта
+    private Boolean pinned; // Закреплена ли подборка на главной странице сайта
 
     @Column(name = "compilations_title", nullable = false)
-    String title; // Заголовок подборки
+    private String title; // Заголовок подборки
 
 }

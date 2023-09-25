@@ -10,8 +10,8 @@ import lombok.Data;
 public class EventRequestStatusUpdateResult {
     //Результат подтверждения/отклонения заявок на участие в событии
 
-    List<ParticipationRequestDto> confirmedRequests;
+    private List<ParticipationRequestDto> confirmedRequests;
 
-    List<ParticipationRequestDto> rejectedRequests;
+    private List<ParticipationRequestDto> rejectedRequests;
 
 }

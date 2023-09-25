@@ -17,18 +17,19 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.stereotype.Component;
 
+@Component
 public class StatsClient {
 
     private final HttpClient client = HttpClient.newBuilder()
             .version(HttpClient.Version.HTTP_1_1)
             .build();
 
-    @Value("${stats-service.url}")
     private final String serverUrl;
     private final Gson gson = getGson();
 
-    public StatsClient(@Value("${stats-service.url}") String serverUrl) {
+    public StatsClient(@Value("${stats-server.url}") String serverUrl) {
         this.serverUrl = serverUrl;
     }
 

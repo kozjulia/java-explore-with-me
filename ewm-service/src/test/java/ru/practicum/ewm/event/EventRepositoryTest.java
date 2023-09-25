@@ -1,4 +1,4 @@
-package ru.practicum.ewm.event.repository;
+package ru.practicum.ewm.event;
 
 import org.junit.jupiter.api.Test;
 

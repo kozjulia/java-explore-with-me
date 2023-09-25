@@ -1,27 +1,17 @@
 package ru.practicum.ewm.util;
 
 import ru.practicum.ewm.StatsClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Statistic {
 
+    public final StatsClient statsClient;
 
-    //public StatsClient statsClient = new StatsClient("http://localhost:9090");
-    public StatsClient statsClient = new StatsClient("http://stats-server:9090");
-
-  /*  @Autowired
-    public StatsClient statsClient;*/
-
-    //public StatsClient statsClient = new StatsClient(@Value("${EWM_STATS_SERVER_URL}"));
-    //public StatsClient statsClient = new StatsClient("${stats-service.url}");
-
-    ////
-    ////todo
-    /// Андрей, а как передать в url переменную окружения из проперитиз, например "${stats-server.url}",
-    // что закомичено, так пробовала
-    //////
-    //////
-    ////
+    @Autowired
+    public Statistic(StatsClient statsClient) {
+        this.statsClient = statsClient;
+    }
 
 }
