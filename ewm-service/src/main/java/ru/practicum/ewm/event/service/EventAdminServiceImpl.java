@@ -1,7 +1,6 @@
 package ru.practicum.ewm.event.service;
 
 import ru.practicum.ewm.category.model.Category;
-import ru.practicum.ewm.dto.EndpointHit;
 import ru.practicum.ewm.event.dto.EventFullDto;
 import ru.practicum.ewm.event.dto.UpdateEventAdminRequest;
 import ru.practicum.ewm.event.mapper.EventMapper;
@@ -12,14 +11,12 @@ import ru.practicum.ewm.exception.ConflictException;
 import ru.practicum.ewm.exception.NotSaveException;
 import ru.practicum.ewm.request.model.StateRequest;
 import ru.practicum.ewm.request.repository.RequestRepository;
-import ru.practicum.ewm.util.Statistic;
 import ru.practicum.ewm.util.UtilService;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import javax.servlet.http.HttpServletRequest;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -37,14 +34,12 @@ public class EventAdminServiceImpl implements EventAdminService {
     private final EventRepository eventRepository;
     private final RequestRepository requestRepository;
     private final UtilService utilService;
-    private final Statistic statistic;
 
     @Transactional(readOnly = true)
     @Override
     public List<EventFullDto> getAllEventsByAdmin(
             List<Long> users, List<StateEvent> states, List<Long> categories,
-            LocalDateTime rangeStart, LocalDateTime rangeEnd, Integer from, Integer size,
-            HttpServletRequest request) {
+            LocalDateTime rangeStart, LocalDateTime rangeEnd, Integer from, Integer size) {
         Pageable page = PageRequest.of(from, size, Sort.by(Sort.Direction.ASC, "id"));
 
         if (rangeStart == null) {
@@ -57,17 +52,6 @@ public class EventAdminServiceImpl implements EventAdminService {
 
         List<Event> events = eventRepository.getAllEventsByAdmin(users, states,
                 categories, rangeStart, rangeEnd, page);
-        if (events != null) {
-            for (Event event : events) {
-                EndpointHit endpointHit = new EndpointHit();
-                endpointHit.setApp("ewm-service");
-                endpointHit.setUri("/events/" + event.getId());
-                endpointHit.setIp(request.getRemoteAddr());
-                endpointHit.setTimestamp(LocalDateTime.now());
-                statistic.statsClient.saveHit(endpointHit);
-            }
-        }
-
         Map<Long, Long> views = utilService.returnMapViewStats(events, rangeStart, rangeEnd);
         List<EventFullDto> eventFullDtos = EventMapper.INSTANCE.convertEventListToEventFullDtoList(events);
 
