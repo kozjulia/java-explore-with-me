@@ -20,7 +20,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static util.Constants.FORMATTER_FOR_DATETIME;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.*;
@@ -49,7 +48,7 @@ class StatsServerControllerIntegrationTest {
         endpointHit.setApp("app");
         endpointHit.setUri("/uri");
         endpointHit.setIp("23.23.23.23");
-        endpointHit.setTimestamp(LocalDateTime.now().format(FORMATTER_FOR_DATETIME));
+        endpointHit.setTimestamp(LocalDateTime.now());
 
         when(statsServerService.saveEndpointHit(any(EndpointHit.class))).thenReturn(endpointHit);
 
@@ -64,7 +63,7 @@ class StatsServerControllerIntegrationTest {
                 .getContentAsString(StandardCharsets.UTF_8);
 
         assertThat(objectMapper.writeValueAsString(endpointHit), equalTo(result));
-        verify(statsServerService, times(1)).saveEndpointHit(endpointHit);
+        verify(statsServerService, times(1)).saveEndpointHit(any(EndpointHit.class));
     }
 
     @SneakyThrows

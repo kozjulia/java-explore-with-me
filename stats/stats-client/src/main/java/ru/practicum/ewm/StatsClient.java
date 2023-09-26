@@ -15,22 +15,29 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.stereotype.Component;
 
+@Component
 public class StatsClient {
 
-    private final HttpClient client = HttpClient.newHttpClient();
-    private final String serverUrl;
+    private final HttpClient client = HttpClient.newBuilder()
+            .version(HttpClient.Version.HTTP_1_1)
+            .build();
 
+    private final String serverUrl;
     private final Gson gson = getGson();
 
-    public StatsClient(String serverUrl) {
+    public StatsClient(@Value("${stats-server.url}") String serverUrl) {
         this.serverUrl = serverUrl;
     }
 
     public EndpointHit saveHit(EndpointHit endpointHitDto) {
         URI uri = URI.create(serverUrl + "/hit");
-        final HttpRequest.BodyPublisher body = HttpRequest.BodyPublishers.ofString(endpointHitDto.toString());
+        final HttpRequest.BodyPublisher body = HttpRequest.BodyPublishers.ofString(gson.toJson(endpointHitDto));
         HttpRequest request = HttpRequest.newBuilder()
+                .header("Content-Type", "application/json")
                 .uri(uri)
                 .POST(body)
                 .build();
@@ -42,18 +49,23 @@ public class StatsClient {
         }
     }
 
-    public List<ViewStats> getAllStats(LocalDateTime start, LocalDateTime end,
+    public List<ViewStats> getAllStats(String start, String end,
                                        List<String> uris, Boolean unique) {
-        URI uri = URI.create(serverUrl + "/stats?start={start}&end={end}&uris={uris}&unique={unique}");
+        URI uri = UriComponentsBuilder.fromUriString(serverUrl)
+                .path("/stats")
+                .queryParam("start", start)
+                .queryParam("end", end)
+                .queryParam("uris", uris)
+                .queryParam("unique", unique)
+                .encode()
+                .build()
+                .toUri();
+
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(uri)
-                .header("start", "start")
-                .header("end", "end")
-                .header("uris", "uris")
-                .header("unique", "unique")
                 .GET()
                 .build();
-        String key = "";
+
         try {
             final HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             Type userType = new TypeToken<List<ViewStats>>() {
@@ -62,11 +74,11 @@ public class StatsClient {
         } catch (NullPointerException | IOException | InterruptedException e) {
             throw new ClientException("Ошибка в клиенте статистики при выполнении запроса: " + request);
         }
-
     }
 
     private static Gson getGson() {
         GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter());
         return gsonBuilder.create();
     }
 
