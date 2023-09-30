@@ -41,11 +41,26 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             "and (e.eventDate BETWEEN :rangeStart AND :rangeEnd) " +
             "and ((:onlyAvailable IS TRUE AND (e.participantLimit > e.confirmedRequests OR e.participantLimit = 0)) " +
             "    OR :onlyAvailable IS FALSE) ")
-    List<Event> getAllEvents(@Param("text") String text,
-                             @Param("categories") List<Long> categories,
-                             @Param("paid") Boolean paid,
-                             @Param("rangeStart") LocalDateTime rangeStart,
-                             @Param("rangeEnd") LocalDateTime rangeEnd,
-                             @Param("onlyAvailable") Boolean onlyAvailable,
-                             Pageable page);
+    List<Event> getAllEvents(
+            @Param("text") String text,
+            @Param("categories") List<Long> categories,
+            @Param("paid") Boolean paid,
+            @Param("rangeStart") LocalDateTime rangeStart,
+            @Param("rangeEnd") LocalDateTime rangeEnd,
+            @Param("onlyAvailable") Boolean onlyAvailable,
+            Pageable page);
+
+    @Query("select e " +
+            "from Event e " +
+            "where (e.state = 'PUBLISHED') " +
+            "and (function('distance', e.location.lat, e.location.lon, :lat, :lon) <= :radius) " +
+            "and (e.eventDate BETWEEN :rangeStart AND :rangeEnd) ")
+    List<Event> getAllEventsByLocation(
+            @Param("lat") Float lat,
+            @Param("lon") Float lon,
+            @Param("radius") Float radius,
+            @Param("rangeStart") LocalDateTime rangeStart,
+            @Param("rangeEnd") LocalDateTime rangeEnd,
+            Pageable page);
+
 }

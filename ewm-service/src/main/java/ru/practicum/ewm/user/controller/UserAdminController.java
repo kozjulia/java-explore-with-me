@@ -46,7 +46,7 @@ public class UserAdminController {
      */
     public ResponseEntity<UserDto> saveUser(@Valid @RequestBody NewUserRequest newUserRequest) {
         UserDto userDto = adminService.saveUser(newUserRequest);
-        log.info("Добавлен новый пользователь: {}", userDto);
+        log.info("Добавлен новый пользователь: {}.", userDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
     }
 
@@ -57,7 +57,7 @@ public class UserAdminController {
      */
     public void deleteUserById(@PathVariable Long userId) {
         adminService.deleteUserById(userId);
-        log.info("Удалён пользователь с id = {}", userId);
+        log.info("Удалён пользователь с id = {}.", userId);
     }
 
 }

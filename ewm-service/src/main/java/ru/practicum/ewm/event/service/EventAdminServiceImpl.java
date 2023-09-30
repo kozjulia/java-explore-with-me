@@ -9,6 +9,7 @@ import ru.practicum.ewm.event.repository.EventRepository;
 import ru.practicum.ewm.exception.BadRequestException;
 import ru.practicum.ewm.exception.ConflictException;
 import ru.practicum.ewm.exception.NotSaveException;
+import ru.practicum.ewm.location.model.Location;
 import ru.practicum.ewm.request.model.StateRequest;
 import ru.practicum.ewm.request.repository.RequestRepository;
 import ru.practicum.ewm.util.UtilService;

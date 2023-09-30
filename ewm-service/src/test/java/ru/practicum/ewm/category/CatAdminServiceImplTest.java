@@ -58,13 +58,15 @@ class CatAdminServiceImplTest {
         assertThat("Категория не была создана: " + categoryToSave,
                 equalTo(exception.getMessage()));
         verify(categoryRepository, times(1)).save(any(Category.class));
+        verifyNoMoreInteractions(categoryRepository);
     }
 
     @Test
-    @DisplayName("удалена категория, когда вызвано, тогда он удаляется")
+    @DisplayName("удалена категория, когда вызвано, тогда она удаляется")
     void deleteCategory_whenInvoked_thenDeletedCategory() {
         Long catId = 0L;
         when(utilService.returnCategory(anyLong())).thenReturn(new Category());
+        when(categoryRepository.deleteByIdWithReturnedLines(anyLong())).thenReturn(1);
 
         Boolean actualResult = adminService.deleteCategoryById(catId);
 

@@ -1,4 +1,4 @@
-package ru.practicum.ewm.event.model;
+package ru.practicum.ewm.location.model;
 
 import javax.persistence.*;
 
@@ -22,5 +22,8 @@ public class Location {
 
     @Column(name = "locations_lon", nullable = false)
     private Float lon; // Долгота
+
+    @Column(name = "locations_radius", nullable = false)
+    private Float radius;
 
 }

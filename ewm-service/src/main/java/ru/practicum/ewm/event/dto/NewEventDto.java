@@ -1,5 +1,7 @@
 package ru.practicum.ewm.event.dto;
 
+import ru.practicum.ewm.location.dto.LocationDto;
+
 import java.time.LocalDateTime;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotBlank;
