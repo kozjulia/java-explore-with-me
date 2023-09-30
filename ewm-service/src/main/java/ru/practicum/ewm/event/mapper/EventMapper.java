@@ -6,7 +6,8 @@ import ru.practicum.ewm.event.dto.EventFullDto;
 import ru.practicum.ewm.event.dto.EventShortDto;
 import ru.practicum.ewm.event.dto.NewEventDto;
 import ru.practicum.ewm.event.model.Event;
-import ru.practicum.ewm.event.model.Location;
+import ru.practicum.ewm.location.mapper.LocationMapper;
+import ru.practicum.ewm.location.model.Location;
 import ru.practicum.ewm.user.mapper.UserMapper;
 import ru.practicum.ewm.user.model.User;
 

@@ -29,7 +29,7 @@ public class CompAdminController {
      */
     public ResponseEntity<CompilationDto> saveCompilation(@Valid @RequestBody NewCompilationDto newCompilationDto) {
         CompilationDto compilationDto = adminService.saveCompilation(newCompilationDto);
-        log.info("Добавлена новая подборка: {}", compilationDto);
+        log.info("Добавлена новая подборка: {}.", compilationDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(compilationDto);
     }
 
@@ -40,7 +40,7 @@ public class CompAdminController {
      */
     public void deleteCompilationById(@PathVariable Long compId) {
         adminService.deleteCompilationById(compId);
-        log.info("Удалена подборка с id = {}", compId);
+        log.info("Удалена подборка с id = {}.", compId);
     }
 
     @PatchMapping("/{compId}")

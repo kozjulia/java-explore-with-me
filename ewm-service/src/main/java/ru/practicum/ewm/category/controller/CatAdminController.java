@@ -28,7 +28,7 @@ public class CatAdminController {
      */
     public ResponseEntity<CategoryDto> saveCategory(@Valid @RequestBody NewCategoryDto newCategoryDto) {
         CategoryDto categoryDto = adminService.saveCategory(newCategoryDto);
-        log.info("Добавлена новая категория: {}", categoryDto);
+        log.info("Добавлена новая категория: {}.", categoryDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(categoryDto);
     }
 
@@ -39,7 +39,7 @@ public class CatAdminController {
      */
     public ResponseEntity<Boolean> deleteCategoryById(@PathVariable Long catId) {
         Boolean result = adminService.deleteCategoryById(catId);
-        log.info("Удалена категория с id = {}", catId);
+        log.info("Удалена категория с id = {}.", catId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(result);
     }
 

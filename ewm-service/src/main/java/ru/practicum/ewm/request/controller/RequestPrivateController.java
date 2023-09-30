@@ -37,7 +37,7 @@ public class RequestPrivateController {
     public ResponseEntity<ParticipationRequestDto> saveRequest(
             @PathVariable Long userId, @RequestParam Long eventId) {
         ParticipationRequestDto participationRequestDto = privateService.saveRequest(userId, eventId);
-        log.info("Добавлен новый запрос на участие в событии, userId = {}, eventId = {}: {}",
+        log.info("Добавлен новый запрос на участие в событии, userId = {}, eventId = {}: {}.",
                 userId, eventId, participationRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(participationRequestDto);
     }

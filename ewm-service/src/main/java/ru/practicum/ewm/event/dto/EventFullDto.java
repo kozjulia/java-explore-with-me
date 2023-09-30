@@ -2,6 +2,7 @@ package ru.practicum.ewm.event.dto;
 
 import ru.practicum.ewm.category.dto.CategoryDto;
 import ru.practicum.ewm.event.model.StateEvent;
+import ru.practicum.ewm.location.dto.LocationDto;
 import ru.practicum.ewm.user.dto.UserShortDto;
 
 import java.time.LocalDateTime;

@@ -46,7 +46,7 @@ public class EventPrivateController {
     public ResponseEntity<EventFullDto> saveEvent(
             @PathVariable Long userId, @Valid @RequestBody NewEventDto newEventDto) {
         EventFullDto eventFullDto = privateService.saveEvent(userId, newEventDto);
-        log.info("Добавлено новое событие: {}", eventFullDto);
+        log.info("Добавлено новое событие: {}.", eventFullDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(eventFullDto);
     }
 

@@ -5,7 +5,7 @@ import ru.practicum.ewm.dto.ViewStats;
 import ru.practicum.ewm.event.dto.*;
 import ru.practicum.ewm.event.mapper.EventMapper;
 import ru.practicum.ewm.event.model.Event;
-import ru.practicum.ewm.event.model.Location;
+import ru.practicum.ewm.location.model.Location;
 import ru.practicum.ewm.event.model.StateActionUser;
 import ru.practicum.ewm.event.model.StateEvent;
 import ru.practicum.ewm.event.repository.EventRepository;

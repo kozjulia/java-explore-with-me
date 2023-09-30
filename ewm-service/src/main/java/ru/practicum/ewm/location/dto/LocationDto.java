@@ -1,6 +1,7 @@
-package ru.practicum.ewm.event.dto;
+package ru.practicum.ewm.location.dto;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import lombok.Data;
 
@@ -14,5 +15,9 @@ public class LocationDto {
 
     @NotNull(message = "Ошибка! Долгота не может быть пустой.")
     private Float lon;
+
+    @NotNull(message = "Ошибка! Радиус не может быть пустой.")
+    @Positive(message = "Ошибка! Радиус должен быть > 0.")
+    private Float radius = 0f;
 
 }
