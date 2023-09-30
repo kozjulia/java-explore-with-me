@@ -62,9 +62,6 @@ public class EventPublicServiceImpl implements EventPublicService {
         endpointHit.setTimestamp(LocalDateTime.now());
         statistic.statsClient.saveHit(endpointHit);
 
-        /*if (categories != null && categories.size() == 1 && categories.get(0).equals(0L)) {
-            categories = null;
-        }*/
         if (rangeStart == null) {
             rangeStart = LocalDateTime.now().minusYears(100);
         }

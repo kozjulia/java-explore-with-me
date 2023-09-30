@@ -37,7 +37,7 @@ public class CatAdminServiceImpl implements CatAdminService {
         utilService.returnCategory(catId);
 
         try {
-            return categoryRepository.deleteByIdWithReturnedLines(catId) >= 0;
+            return categoryRepository.deleteByIdWithReturnedLines(catId) > 0;
         } catch (DataIntegrityViolationException e) {
             throw new ConflictException("Категория с ид = " + catId + " не может быть удалена, " +
                     "существуют события, связанные с категорией.");

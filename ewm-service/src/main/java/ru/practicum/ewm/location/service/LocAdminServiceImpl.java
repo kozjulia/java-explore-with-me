@@ -42,7 +42,7 @@ public class LocAdminServiceImpl implements LocAdminService {
         utilService.returnLocationById(locId);
 
         try {
-            return locationRepository.deleteByIdWithReturnedLines(locId) >= 0;
+            return locationRepository.deleteByIdWithReturnedLines(locId) > 0;
         } catch (DataIntegrityViolationException e) {
             throw new ConflictException("Локация с ид = " + locId + " не может быть удалена, " +
                     "существуют события, связанные с локацией.");

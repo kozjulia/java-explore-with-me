@@ -1,9 +1,9 @@
 package ru.practicum.ewm.request;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import ru.practicum.ewm.BaseDataJpaTest;
 import ru.practicum.ewm.request.repository.RequestRepository;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 class RequestRepositoryTest extends BaseDataJpaTest {
 

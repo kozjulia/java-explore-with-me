@@ -1,9 +1,9 @@
 package ru.practicum.ewm.category;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import ru.practicum.ewm.BaseDataJpaTest;
 import ru.practicum.ewm.category.repository.CategoryRepository;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 class CategoryRepositoryTest extends BaseDataJpaTest {
 
